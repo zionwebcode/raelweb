@@ -1,0 +1,215 @@
+<!-- flower-shop.html (Versi dengan profil penjual besar, icon slider coklat tua, dan gambar bunga di footer) -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prannkster</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #fdf8f3;
+      font-family: 'Quicksand', sans-serif;
+      color: #4e342e;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    header h2 {
+      font-size: 2.8rem;
+      font-family: 'Playfair Display', serif;
+      color: #6d4c41;
+    }
+    header p {
+      color: #8d6e63;
+      font-style: italic;
+    }
+    .seller-profile {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background-color: #fef4ec;
+      padding: 30px;
+      border-radius: 20px;
+      margin: 0 auto 40px auto;
+      max-width: 900px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .seller-profile img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .seller-profile .info h3 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: #5d4037;
+    }
+    .seller-profile .info p {
+      margin-top: 8px;
+      color: #6d4c41;
+      font-size: 1.05rem;
+    }
+    .carousel {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      max-width: 400px;
+      margin: 0 auto 60px auto;
+    }
+    .card {
+      width: 100%;
+      background: #fffefb;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      border-radius: 20px;
+      transform: scale(1);
+      transition: transform 0.5s ease-in-out;
+    }
+    .card.animate {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      color: #6d4c41;
+      margin-bottom: 5px;
+      font-family: 'Playfair Display', serif;
+    }
+    .card p {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .card button {
+      margin-top: 12px;
+      background-color: #bcaaa4;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .card button:hover {
+      background-color: #a1887f;
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #5d4037;
+      color: white;
+      border: none;
+      font-size: 1.8rem;
+      padding: 10px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .nav-btn:hover {
+      background-color: #3e2723;
+    }
+    .prev {
+      left: -50px;
+    }
+    .next {
+      right: -50px;
+    }
+    footer {
+      margin-top: 60px;
+      text-align: center;
+    }
+    .footer-flowers {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .footer-flowers img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Railflora</h2>
+    <p>Like flowers, we bloom in our own time</p>
+  </header>
+
+  <section class="seller-profile">
+    <img src="rail.jpg" alt="Profil Penjual">
+    <div class="info">
+      <h3>By: Rail</h3>
+      <p>They say ‘bloom where you are planted’, but honestly, I’d prefer a pot with better Wi-Fi, sunlight, and maybe a coffee shop nearby</p>
+    </div>
+  </section>
+
+  <div class="carousel">
+    <button class="nav-btn prev" onclick="prevFlower()">←</button>
+    <div class="card" id="flowerCard">
+      <img src="rail6.jpg" alt="Mawar Vintage">
+      <h3>Mawar Vintage</h3>
+      <p>Soft like petals, stubborn like roots.</p>
+      <button></button>
+    </div>
+    <button class="nav-btn next" onclick="nextFlower()">→</button>
+  </div>
+
+  <footer>
+    <div class="footer-flowers">
+      <img src="rail8.png" alt="Bunga Dekoratif">
+    </div>
+  </footer>
+
+  <script>
+    const flowers = [
+      { name: "Lavender", price: "Watered by chaos, still a flower.", image: "rail2.jpg" },
+      { name: "sunflower", price: "Just a little flower trying her best.", image: "rail3.jpg" },
+      { name: "jasmine", price: "Not perfect, just growing", image: "rail4.jpg" },
+      { name: "Buket Rustic", price: "Sunshine mixed with a bit of soil", image: "rail5.jpg" },
+    ];
+
+    let current = 0;
+    const card = document.getElementById("flowerCard");
+
+    function updateCard() {
+      const flower = flowers[current];
+      card.classList.add("animate");
+      setTimeout(() => {
+        card.querySelector("img").src = flower.image;
+        card.querySelector("img").alt = flower.name;
+        card.querySelector("h3").textContent = flower.name;
+        card.querySelector("p").textContent = flower.price;
+        card.classList.remove("animate");
+      }, 200);
+    }
+
+    function nextFlower() {
+      current = (current + 1) % flowers.length;
+      updateCard();
+    }
+
+    function prevFlower() {
+      current = (current - 1 + flowers.length) % flowers.length;
+      updateCard();
+    }
+  </script>
+</body>
+</html>
+
+
